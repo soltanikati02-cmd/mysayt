@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="fa">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سایت شخصی سارا</title>
+    <link rel="stylesheet" href="https://cdn.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+    <header>
+        <div class="sara">سارا مریوانی</div>
+        <nav id="menu"> <a href="#about">درباره من</a> <a href="#skills">مهارت ها</a> <a href="#contact">تماس بامن</a> <a href="#cart-products">نمونه کارها</a> </nav>
+    </header>
+    <section id="about"> <img class="profile" src="kati/photo.jpg" alt="عکس من">
+        <h3>درباره من</h3>
+        <div class="matn">
+            <p>من به دنیای برنامه نویسی علاقه زیادی دارم</p>
+            <p>ومدت هاست که با انگیزه بالا مسیر یادگیری را شروع کردم</p>
+            <p>الان در حال یادگیری HTML, CSS, JavaScript هستم</p>
+            <p>و هر روز مهارت‌هایم را بیشتر می‌کنم</p>
+            <p>هدف من این است که به یک طراح سایت حرفه‌ای تبدیل شوم</p>
+            <p>و بتوانم پروژه‌های واقعی بگیرم و سایت‌های زیبا، سریع و کاربردی بسازم</p>
+        </div>
+    </section>
+
+    <section id="skills">
+        <h2>مهارت‌ها</h2>
+        <div class="skills"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
+    </section>
+
+    <section id="contact">
+        <h2>تماس بامن</h2>
+        <p>شماره تماس: 09928470655</p>
+        <p>اینستاگرام: s.a.r.a.a__</p>
+    </section>
+    <div class="contact-box">
+        <h2>فرم تماس با من</h2>
+        <form class="contact-form" onsubmit="return validateContactForm()"> <label>:نام شما</label> <input type="text" id="contact-name" required> <span class="error-msg" id="err-name"></span> <label>:شماره شما</label> <input type="tel" id="contact-tel" pattern="09[0-9]{9}" required> <span class="error-msg" id="err-tel"></span>            <label>:پیام شما</label> <textarea id="contact-msg" required></textarea> <span class="error-msg" id="err-msg"></span> <button type="submit">ارسال</button> </form>
+    </div>
+
+    <section class="cart1" id="cart-products">
+        <h2>پروژه سبد خرید</h2>
+        <div class="cart"> تعداد کالا: <span id="count">0</span><br> جمع کل: <span id="total">0</span> </div>
+        <div class="container">
+            <div class="product"> <img src="kati/aks3.jpg" alt="">
+                <h3>کفش اسپرت</h3>
+                <p>قیمت: <span id="price1">350000</span></p> <button onclick="addCart(1)">افزودن به سبد</button> </div>
+            <div class="product"> <img src="kati/aks2.jpg" alt="">
+                <h3>کیف چرمی</h3>
+                <p>قیمت: <span id="price2">280000</span></p> <button onclick="addCart(2)">افزودن به سبد</button> </div>
+            <div class="product"> <img src="kati/aks1.jpg" alt="">
+                <h3>ساعت مچی</h3>
+                <p>قیمت: <span id="price3">500000</span></p> <button onclick="addCart(3)">افزودن به سبد</button> </div>
+        </div>
+    </section>
+    <div class="times" id="cart-time">
+        <h3>ساعت دیجیتال</h3>
+        <p id="date"></p>
+        <p id="time"></p>
+    </div>
+
+    <div class="list" id="cart-list">
+        <p>افزودن لیست کارها</p> <input type="text" id="task-input" placeholder="یک کار بنویس"> <button onclick="addTask()">افزودن</button> <button onclick="clearTasks()">پاک کردن همه</button>
+        <ul id="task-list"></ul>
+    </div>
+
+    <div class="form" id="cart-form">
+        <h2>فرم ورود</h2> <input type="text" id="login-name" placeholder="Name" required><br> <input type="text" id="login-user" placeholder="Username (6+) " required minlength="6"><br> <input type="password" id="login-pass" placeholder="Password (3+)" required
+            minlength="3"><br> <input type="email" id="login-email" placeholder="Email" required><br> <button onclick="validateLoginForm()">ارسال</button>
+        <p id="login-msg" style="color:red;"></p>
+    </div>
+    <footer class="footer">@تمام حقوق محفوظ است 2025</footer>
+    <script>
+        let count = 0,
+            total = 0;
+
+        function addCart(n) {
+            let price = Number(document.getElementById('price' + n).textContent);
+            count++;
+            total += price;
+            document.getElementById('count').textContent = count;
+            document.getElementById('total').textContent = total;
+        }
+
+        function updateClock() {
+            let now = new Date();
+            let persianDate = now.toLocaleDateString("fa-IR", {
+                weekday: "long",
+                year: "numeric",
+                month: "long",
+                day: "numeric"
+            });
+            let time = now.toLocaleTimeString("fa-IR");
+            document.getElementById("date").textContent = persianDate;
+            document.getElementById("time").textContent = time;
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        function validateContactForm() {
+            let valid = true;
+            let name = document.getElementById('contact-name').value.trim();
+            let tel = document.getElementById('contact-tel').value.trim();
+            let msg = document.getElementById('contact-msg').value.trim();
+            document.getElementById('err-name').textContent = '';
+            document.getElementById('err-tel').textContent = '';
+            document.getElementById('err-msg').textContent = '';
+            if (name == '') {
+                document.getElementById('err-name').textContent = 'نام نمی‌تواند خالی باشد';
+                valid = false;
+            }
+            if (!/^09\d{9}$/.test(tel)) {
+                document.getElementById('err-tel').textContent = 'شماره معتبر نیست';
+                valid = false;
+            }
+            if (msg == '') {
+                document.getElementById('err-msg').textContent = 'پیام نمی‌تواند خالی باشد';
+                valid = false;
+            }
+            return valid;
+        }
+
+        function addTask() {
+            let input = document.getElementById('task-input');
+            let val = input.value.trim();
+            if (val !== '') {
+                let li = document.createElement('li');
+                li.textContent = val;
+                let delBtn = document.createElement('button');
+                delBtn.textContent = 'حذف';
+                delBtn.onclick = function() {
+                    li.remove();
+                }
+                li.appendChild(delBtn);
+                document.getElementById('task-list').appendChild(li);
+                input.value = '';
+            }
+        }
+
+        function clearTasks() {
+            document.getElementById('task-list').innerHTML = '';
+        }
+
+        function validateLoginForm() {
+            let name = document.getElementById('login-name').value.trim();
+            let user = document.getElementById('login-user').value.trim();
+            let pass = document.getElementById('login-pass').value.trim();
+            let email = document.getElementById('login-email').value.trim();
+            let msg = '';
+            if (name == '') msg += 'نام خالی است\n';
+            if (user.length < 6) msg += 'نام کاربری باید حداقل ۶ حرف باشد\n';
+            if (pass.length < 3) msg += 'رمز عبور باید حداقل ۳ حرف باشد\n';
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) msg += 'ایمیل معتبر نیست\n';
+            document.getElementById('login-msg').textContent = msg;
+        }
+    </script>
+</body>
+
+</html>
